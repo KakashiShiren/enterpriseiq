@@ -2,8 +2,6 @@
 
 A LangChain-powered AI agent that connects to enterprise databases and answers natural language business questions — no SQL knowledge required.
 
-![EnterpriseIQ Demo](demo.png)
-
 ## 🎯 What It Does
 
 EnterpriseIQ lets business users ask questions like:
@@ -102,6 +100,9 @@ db = SQLDatabase.from_uri("postgresql://user:pass@localhost/mydb")
 - [ ] Export query results to CSV
 - [ ] Add vector search over unstructured documents (RAG)
 - [ ] Multi-agent: one agent for SQL, one for document QA
+
+## Screenshot:
+<img width="2878" height="1450" alt="Screenshot 2026-03-20 165426" src="https://github.com/user-attachments/assets/99f7aee4-7e41-4c5c-b78a-274df86c6dd9" />
 
 ## 📄 License
 
