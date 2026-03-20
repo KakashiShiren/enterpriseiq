@@ -1,0 +1,79 @@
+APPLICATION WRITE-UP — FocusKPI Junior AI/ML Engineer
+Project: EnterpriseIQ — SQL-Connected AI Analyst Chatbot
+Tarun Reddy | tarunreddy2811@gmail.com
+─────────────────────────────────────────────────────────────
+
+WHAT PROBLEM THE AGENT SOLVES
+──────────────────────────────
+Enterprise data is locked inside relational databases that only technical
+users can query directly. Business analysts, sales managers, and operations
+teams regularly need answers from that data — but have no SQL expertise and
+depend on data teams to run queries on their behalf, creating bottlenecks.
+EnterpriseIQ solves this by acting as a natural language interface to any
+SQL database. A user types a plain English question like "Which country
+generates the most revenue this quarter?" and the system automatically
+generates the correct SQL, executes it against the live database, and
+returns a concise, business-readable answer. The result is self-service
+data access for non-technical users, with no SQL knowledge required.
+
+ARCHITECTURE AND TOOLS
+────────────────────────
+The system is built on LangChain's SQL Agent using OpenAI's GPT-3.5-turbo
+as the underlying LLM. The architecture follows a three-layer pattern:
+a Streamlit frontend handles user interaction and chat history; a
+LangChain SQL Agent serves as the reasoning core; and SQLAlchemy connects
+to the SQLite database (using the Chinook music store dataset as a
+realistic enterprise schema with customers, invoices, artists, and
+employees). The agent uses the `create_sql_agent` abstraction with OpenAI
+function-calling ("openai-tools" mode), which allows it to reliably call
+the SQL toolkit's inspect, query, and validate tools without hallucinating
+tool syntax. Schema context — including table names, columns, and sample
+rows — is automatically injected into the LLM's context window at each
+turn via LangChain's `SQLDatabase` utility, so the model always has an
+accurate picture of the data structure before generating queries.
+
+MY SPECIFIC CONTRIBUTION
+─────────────────────────
+I designed and built the entire system independently, from database setup
+through agent configuration to the frontend UI. Key decisions I made
+included: choosing the `openai-tools` agent type over the legacy
+`zero-shot-react` approach because function-calling produces more reliable
+tool invocations on multi-step SQL tasks; whitelisting specific tables in
+the SQLDatabase constructor to simulate production-grade access control;
+setting temperature=0 on the LLM to ensure deterministic, repeatable SQL
+generation; and capping `max_iterations=10` to prevent runaway agent loops
+on ambiguous queries. The Streamlit UI was designed with a sidebar-driven
+example question system so non-technical users have a guided on-ramp to
+the agent's capabilities without needing to know what questions are
+answerable.
+
+CHALLENGES AND HOW I SOLVED THEM
+──────────────────────────────────
+The most significant challenge was handling the agent's tendency to
+over-generate — on multi-table questions, early versions would execute
+3–4 exploratory queries before arriving at the final answer, increasing
+latency and API costs. I addressed this by enriching the system prompt
+with explicit instructions about the database structure and by enabling
+the `sample_rows_in_table_info=3` parameter, which gives the LLM enough
+concrete examples to write accurate queries on the first attempt rather
+than relying on schema inspection alone. A second challenge was graceful
+error handling: when the agent produced malformed SQL (e.g., referencing
+a column that doesn't exist), the default LangChain behavior would raise
+an unhandled exception. I added `handle_parsing_errors=True` at the agent
+level and wrapped the `run_query` function in a try/except that surfaces
+a clean, user-readable error message rather than crashing the Streamlit
+session. These decisions reflect the kind of production-awareness that
+distinguishes a deployable system from a notebook prototype.
+
+WHY THIS MAPS TO THE FOCUSKPI ROLE
+─────────────────────────────────────
+This project directly mirrors the core responsibilities in your job
+description: building AI agents that connect to structured enterprise
+databases, integrating LLM-based reasoning with SQL data sources, and
+delivering output in a client-facing interface. My background as a
+Teaching Assistant for LangChain and LangGraph at Clark University means
+I understand not just how to use these frameworks but how they work
+internally — which matters when debugging agent behavior in production.
+I'm eager to extend this foundation into more complex multi-agent
+architectures, RAG over unstructured enterprise documents, and ML model
+integration — all of which are in scope for this role.
