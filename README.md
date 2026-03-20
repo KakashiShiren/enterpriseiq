@@ -2,7 +2,7 @@
 
 A LangChain-powered AI agent that connects to enterprise databases and answers natural language business questions — no SQL knowledge required.
 
-![EnterpriseIQ Demo](https://via.placeholder.com/800x400?text=EnterpriseIQ+Demo)
+![EnterpriseIQ Demo](demo.png)
 
 ## 🎯 What It Does
 
@@ -22,7 +22,7 @@ User Question (Natural Language)
         ↓
  LangChain SQL Agent  (src/agent.py)
         ↓
-  OpenAI GPT-3.5/4   ←→   SQL Toolkit
+  Groq LLaMA-3-70b   ←→   SQL Toolkit
         ↓                       ↓
    Final Answer           SQLite Database
                          (data/chinook.db)
@@ -31,7 +31,7 @@ User Question (Natural Language)
 **Key components:**
 | Layer | Technology |
 |---|---|
-| LLM | OpenAI GPT-3.5-turbo (swappable to GPT-4o) |
+| LLM | Groq LLaMA-3.3-70b-versatile (free, ultra-fast) |
 | Agent Framework | LangChain SQL Agent (`create_sql_agent`) |
 | Database | SQLite (Chinook music store dataset) |
 | Frontend | Streamlit |
@@ -41,7 +41,7 @@ User Question (Natural Language)
 
 ### 1. Clone the repo
 ```bash
-git clone https://github.com/YOUR_USERNAME/enterpriseiq.git
+git clone https://github.com/KakashiShiren/enterpriseiq.git
 cd enterpriseiq
 ```
 
@@ -53,15 +53,15 @@ pip install -r requirements.txt
 ### 3. Set your API key
 ```bash
 cp .env.example .env
-# Edit .env and add your OpenAI API key
+# Edit .env and add your Groq API key (free at console.groq.com)
 ```
 
 ### 4. Run the app
 ```bash
-streamlit run app.py
+python -m streamlit run app.py
 ```
 
-The app opens at `http://localhost:8501`. Enter your API key in the sidebar and start asking questions.
+The app opens at `http://localhost:8501`. Enter your Groq API key in the sidebar and start asking questions.
 
 ## 🗄️ Database
 
@@ -91,8 +91,8 @@ db = SQLDatabase.from_uri("postgresql://user:pass@localhost/mydb")
 
 | Variable | Default | Description |
 |---|---|---|
-| `OPENAI_API_KEY` | required | Your OpenAI API key |
-| `model` in `agent.py` | `gpt-3.5-turbo` | Swap to `gpt-4o` for better accuracy |
+| `GROQ_API_KEY` | required | Free key from [console.groq.com](https://console.groq.com) |
+| `model` in `agent.py` | `llama-3.3-70b-versatile` | Swap to `llama-3.1-8b-instant` for faster responses |
 | `verbose` in `agent.py` | `True` | Set False to hide SQL chain-of-thought |
 
 ## 🗺️ Roadmap
@@ -102,10 +102,6 @@ db = SQLDatabase.from_uri("postgresql://user:pass@localhost/mydb")
 - [ ] Export query results to CSV
 - [ ] Add vector search over unstructured documents (RAG)
 - [ ] Multi-agent: one agent for SQL, one for document QA
-
-## Screenshot
-<img width="2878" height="1450" alt="Screenshot 2026-03-20 165426" src="https://github.com/user-attachments/assets/d84c68ab-5238-4029-af43-35a355b01fc6" />
-
 
 ## 📄 License
 
