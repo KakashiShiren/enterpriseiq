@@ -103,6 +103,10 @@ db = SQLDatabase.from_uri("postgresql://user:pass@localhost/mydb")
 - [ ] Add vector search over unstructured documents (RAG)
 - [ ] Multi-agent: one agent for SQL, one for document QA
 
+## Screenshot
+<img width="2878" height="1450" alt="Screenshot 2026-03-20 165426" src="https://github.com/user-attachments/assets/d84c68ab-5238-4029-af43-35a355b01fc6" />
+
+
 ## 📄 License
 
 MIT
