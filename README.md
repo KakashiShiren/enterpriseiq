@@ -38,6 +38,12 @@ Key components:
 | Frontend | Streamlit |
 | Schema Introspection | LangChain `SQLDatabase` |
 
+## Why This Project Stands Out
+
+- It is not a static portfolio mockup. The app queries a real relational dataset through an LLM-driven SQL agent.
+- It shows full-stack product thinking: prompt design, data-tool integration, UI polish, and deployment readiness.
+- It is easy to demo in interviews because the app includes guided prompt starters, exploration views, and a clear deployment story.
+
 ## Quick Start
 
 ### 1. Clone the repo
@@ -85,6 +91,13 @@ GROQ_API_KEY = "your_groq_api_key_here"
 8. Click **Deploy**.
 
 The bundled SQLite database already lives in the repo, so no extra storage setup is needed for the first deployment.
+
+## Fast Demo Flow
+
+1. Ask an executive-style question like "Which country generates the most revenue?"
+2. Follow with a customer or operations drill-down.
+3. Use the Explore view to reinforce that the app is grounded in live data.
+4. Export the session as a lightweight analyst briefing.
 
 ## Database
 
