@@ -2,7 +2,8 @@
 
 A LangChain-powered AI agent that connects to enterprise databases and answers natural language business questions without requiring SQL knowledge.
 
-![EnterpriseIQ Demo](demo.png)
+[EnterpriseIQ Demo]
+https://enterpriseiq-app.streamlit.app/
 
 ## What It Does
 
